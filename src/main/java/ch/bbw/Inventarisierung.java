@@ -29,6 +29,56 @@ public class Inventarisierung {
         this.uid_max = uid_max;
     }
 
+    public Map<String, Integer> decode_string_to_keys(String code) {
+        Map<String, Integer> ret = new HashMap<>();
+        int codelen_no_uid = group_len + object_len + area_len + room_len;
+        int codeint = 0;
+        int group_key = 0;
+        int object_key = 0;
+        int area_key = 0;
+        int room = 0;
+        int uid = 0;
+
+        //Get and remove uid
+        // System.out.println("Code: " + code);
+        int uid_len = code.length() - codelen_no_uid;
+        uid = Integer.parseInt(code.substring(code.length() - uid_len));
+        code = code.substring(0, code.length() - uid_len);
+        // System.out.println("UID: " + uid);
+        // System.out.println("Code without UID: " + code);
+
+        //Get and remove room
+        codeint = Integer.parseInt(code);
+        room = codeint % (int) Math.pow(10, room_len);
+        codeint /= (int)Math.pow(10, room_len);
+        // System.out.println("Room: " + room);
+        // System.out.println("Code without Room: " + codeint);
+
+        //Get and remove area key
+        area_key = codeint % (int)Math.pow(10, area_len);
+        codeint /= (int)Math.pow(10, area_len);
+        // System.out.println("Area: " + area_key);
+        // System.out.println("Code without Area: " + codeint);
+
+        //Get and remove object key
+        object_key = codeint % (int)Math.pow(10, object_len);
+        codeint /= (int)Math.pow(10, object_len);
+        // System.out.println("Object: " + object_key);
+        // System.out.println("Code without Object: " + codeint);
+
+        //Get group key
+        group_key = codeint % (int)Math.pow(10, group_len);
+        // System.out.println("Group: " + group_key);
+
+        ret.put("group_key", group_key);
+        ret.put("object_key", object_key);
+        ret.put("area_key", area_key);
+        ret.put("room", room);
+        ret.put("uid", uid);
+        return ret;
+    }
+
+
     public void set_group(int group_key, String group_name) {
         this.group.put(group_key, group_name);
         this.group_object.put(group_key, new HashMap<Integer, String>());
