@@ -14,10 +14,9 @@ public class Inventarisierung {
     private int object_len;
     private int area_len;
     private int room_len;
-    private int uid_min;
     private int uid_max;
 
-    public Inventarisierung(int group_len, int object_len, int area_len, int room_len, int uid_min, int uid_max) {
+    public Inventarisierung(int group_len, int object_len, int area_len, int room_len, int uid_max) {
         this.group = new HashMap<>();
         this.group_object = new HashMap<>();
         this.area = new HashMap<>();
@@ -27,24 +26,23 @@ public class Inventarisierung {
         this.object_len = object_len;
         this.area_len = area_len;
         this.room_len = room_len;
-        this.uid_min = uid_min;
         this.uid_max = uid_max;
     }
 
-    public void set_group(int group_key, String group_name){
+    public void set_group(int group_key, String group_name) {
         this.group.put(group_key, group_name);
         this.group_object.put(group_key, new HashMap<Integer, String>());
     }
 
-    public void set_group_object(int group_key, int object_key, String object_name){
+    public void set_group_object(int group_key, int object_key, String object_name) {
         this.group_object.get(group_key).put(object_key, object_name);
     }
 
-    public void set_area(int area_key, String area_name){
+    public void set_area(int area_key, String area_name) {
         this.area.put(area_key, area_name);
     }
 
-    public void set_area_room(int area_key, List<Integer> room_list){
+    public void set_area_room(int area_key, List<Integer> room_list) {
         this.area_room.put(area_key, room_list);
     }
 
@@ -64,27 +62,23 @@ public class Inventarisierung {
         this.room_len = room_len;
     }
 
-    public void setUid_min(int uid_min) {
-        this.uid_min = uid_min;
-    }
-
     public void setUid_max(int uid_max) {
         this.uid_max = uid_max;
     }
 
-    public Map<Integer, String> getGroup() {
+    public Map<Integer, String> get_group() {
         return group;
     }
 
-    public Map<Integer, Map<Integer, String>> getGroup_object() {
+    public Map<Integer, Map<Integer, String>> get_group_object() {
         return group_object;
     }
 
-    public Map<Integer, String> getArea() {
+    public Map<Integer, String> get_area() {
         return area;
     }
 
-    public Map<Integer, List<Integer>> getArea_room() {
+    public Map<Integer, List<Integer>> get_area_room() {
         return area_room;
     }
 
@@ -102,10 +96,6 @@ public class Inventarisierung {
 
     public int getRoom_len() {
         return room_len;
-    }
-
-    public int getUid_min() {
-        return uid_min;
     }
 
     public int getUid_max() {
