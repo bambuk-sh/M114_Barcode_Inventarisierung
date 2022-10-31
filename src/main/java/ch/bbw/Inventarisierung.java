@@ -29,6 +29,15 @@ public class Inventarisierung {
         this.uid_max = uid_max;
     }
 
+    public void print_values_from_keys(Map<String, Integer> keys_map) {
+        System.out.println("Group: " + group.get(keys_map.get("group_key")));
+        System.out.println("Object: " + group_object.get(keys_map.get("group_key")).get(keys_map.get("object_key")));
+        System.out.println("Area: " + area.get(keys_map.get("area_key")));
+        System.out.println("Floor: " + String.valueOf(keys_map.get("room")).charAt(0));
+        System.out.println("Room: " + keys_map.get("room"));
+        System.out.println("UID: " + keys_map.get("uid"));
+    }
+
     public Map<String, Integer> decode_string_to_keys(String code) {
         Map<String, Integer> ret = new HashMap<>();
         int codelen_no_uid = group_len + object_len + area_len + room_len;
@@ -50,24 +59,24 @@ public class Inventarisierung {
         //Get and remove room
         codeint = Integer.parseInt(code);
         room = codeint % (int) Math.pow(10, room_len);
-        codeint /= (int)Math.pow(10, room_len);
+        codeint /= (int) Math.pow(10, room_len);
         // System.out.println("Room: " + room);
         // System.out.println("Code without Room: " + codeint);
 
         //Get and remove area key
-        area_key = codeint % (int)Math.pow(10, area_len);
-        codeint /= (int)Math.pow(10, area_len);
+        area_key = codeint % (int) Math.pow(10, area_len);
+        codeint /= (int) Math.pow(10, area_len);
         // System.out.println("Area: " + area_key);
         // System.out.println("Code without Area: " + codeint);
 
         //Get and remove object key
-        object_key = codeint % (int)Math.pow(10, object_len);
-        codeint /= (int)Math.pow(10, object_len);
+        object_key = codeint % (int) Math.pow(10, object_len);
+        codeint /= (int) Math.pow(10, object_len);
         // System.out.println("Object: " + object_key);
         // System.out.println("Code without Object: " + codeint);
 
         //Get group key
-        group_key = codeint % (int)Math.pow(10, group_len);
+        group_key = codeint % (int) Math.pow(10, group_len);
         // System.out.println("Group: " + group_key);
 
         ret.put("group_key", group_key);
@@ -77,7 +86,6 @@ public class Inventarisierung {
         ret.put("uid", uid);
         return ret;
     }
-
 
     public void set_group(int group_key, String group_name) {
         this.group.put(group_key, group_name);

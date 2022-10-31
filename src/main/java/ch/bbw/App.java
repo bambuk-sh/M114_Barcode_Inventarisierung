@@ -10,13 +10,11 @@ import java.util.Map;
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
         Inventarisierung i = new Inventarisierung(1, 1, 1, 3, 99999);
         set_inventarisierung_data(i);
 
         String code = "242328583";
-
-
+        i.print_values_from_keys(i.decode_string_to_keys(code));
     }
 
     public static void set_inventarisierung_data(Inventarisierung i) {
