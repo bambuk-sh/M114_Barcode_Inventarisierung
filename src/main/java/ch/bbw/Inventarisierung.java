@@ -28,6 +28,12 @@ public class Inventarisierung {
         this.uid_max = uid_max;
     }
 
+    public String console_input_code() {
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter a Code: ");
+        return s.next();
+    }
+
     public int console_input_group() {
         Scanner s = new Scanner(System.in);
         int group_key = -1;
