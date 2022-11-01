@@ -41,6 +41,32 @@ public class Inventarisierung {
         return ret;
     }
 
+    public Map<String, Boolean> validate_keys(Map<String, Integer> keys_map) {
+        Map<String, Boolean> ret = new HashMap<>();
+        boolean group_key = false;
+        boolean object_key = false;
+        boolean area_key = false;
+        boolean room = false;
+        boolean uid = false;
+
+        group_key = group.containsKey(keys_map.get("group_key"));
+        if (group_key) {
+            object_key = group_object.get(keys_map.get("group_key")).containsKey(keys_map.get("object_key"));
+        }
+        area_key = area.containsKey(keys_map.get("area_key"));
+        if (area_key) {
+            room = area_room.get(keys_map.get("area_key")).contains(keys_map.get("room"));
+        }
+        uid = (keys_map.get("uid") >= 0) && (keys_map.get("uid") <= uid_max);
+
+        ret.put("group_key", group_key);
+        ret.put("object_key", object_key);
+        ret.put("area_key", area_key);
+        ret.put("room", room);
+        ret.put("uid", uid);
+        return ret;
+    }
+
     public Map<String, Integer> decode_string_to_keys(String code) {
         Map<String, Integer> ret = new HashMap<>();
         int codelen_no_uid = group_len + object_len + area_len + room_len;
