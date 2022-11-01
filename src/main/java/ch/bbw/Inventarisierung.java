@@ -1,8 +1,7 @@
 package ch.bbw;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Inventarisierung {
     private Map<Integer, String> group;
@@ -27,6 +26,148 @@ public class Inventarisierung {
         this.area_len = area_len;
         this.room_len = room_len;
         this.uid_max = uid_max;
+    }
+
+    public int console_input_group() {
+        Scanner s = new Scanner(System.in);
+        int group_key = -1;
+
+        System.out.println("Groups:");
+        group.entrySet().forEach(System.out::println);
+        while (!group.containsKey(group_key)) {
+            System.out.print("Select a Group Key: ");
+            group_key = s.nextInt();
+            if (!group.containsKey(group_key)) System.out.println("Invalid Group Key.");
+        }
+        return group_key;
+    }
+
+    public int console_input_object(int group_key) {
+        Scanner s = new Scanner(System.in);
+        int object_key = -1;
+
+        System.out.println("Objects:");
+        group_object.get(group_key).entrySet().forEach(System.out::println);
+        while (!group_object.get(group_key).containsKey(object_key)) {
+            System.out.print("Select an Object Key: ");
+            object_key = s.nextInt();
+            if (!group_object.get(group_key).containsKey(object_key)) System.out.println("Invalid Object Key.");
+        }
+        return object_key;
+    }
+
+    public int console_input_area() {
+        Scanner s = new Scanner(System.in);
+        int area_key = -1;
+
+        System.out.println("Areas:");
+        area.entrySet().forEach(System.out::println);
+        while (!area.containsKey(area_key)) {
+            System.out.print("Select an Area Key: ");
+            area_key = s.nextInt();
+            if (!area.containsKey(area_key)) System.out.println("Invalid Area Key.");
+        }
+        return area_key;
+    }
+
+    public int console_input_floor(int area_key) {
+        Scanner s = new Scanner(System.in);
+        int floor = -1;
+
+        System.out.println("Floors:");
+        Set<Integer> floors = new HashSet<>();
+        area_room.get(area_key).forEach(n -> {
+            floors.add(n / 100);
+        });
+
+        int floor_min = floors.stream().min(Integer::compare).get();
+        int floor_max = floors.stream().max(Integer::compare).get();
+        System.out.println(floor_min + "-" + floor_max);
+
+        while (!floors.contains(floor)) {
+            System.out.print("Select a Floor: ");
+            floor = s.nextInt();
+            if (!floors.contains(floor)) System.out.println("Invalid Floor.");
+        }
+        return floor;
+    }
+
+    public int console_input_room(int area_key, int floor) {
+        Scanner s = new Scanner(System.in);
+        int room = -1;
+
+        System.out.println("Rooms:");
+        List<Integer> rooms = new ArrayList<>();
+        area_room.get(area_key).forEach(n -> {
+            if (n / 100 == floor) rooms.add(n);
+        });
+
+        int room_min = rooms.stream().min(Integer::compare).get();
+        int room_max = rooms.stream().max(Integer::compare).get();
+        System.out.println(room_min + "-" + room_max);
+
+        while (!rooms.contains(room)) {
+            System.out.print("Select a Room: ");
+            room = s.nextInt();
+            if (!rooms.contains(room)) System.out.println("Invalid Room.");
+        }
+        return room;
+    }
+
+    public int console_input_uid() {
+        Scanner s = new Scanner(System.in);
+        int uid = -1;
+
+        System.out.println("Unique ID:");
+        System.out.println("0-" + uid_max);
+
+        while (!(uid >= 0) && (uid <= uid_max)) {
+            System.out.print("Select an Unique ID: ");
+            uid = s.nextInt();
+            if ((uid >= 0) && (uid <= uid_max)) System.out.println("Invalid UID.");
+        }
+        return uid;
+    }
+
+    public String console_input_to_code_string() {
+        int group_key = console_input_group();
+        // System.out.println(group_key);
+        System.out.println("----------");
+
+        int object_key = console_input_object(group_key);
+        // System.out.println(object_key);
+        System.out.println("----------");
+
+        int area_key = console_input_area();
+        // // System.out.println(area_key);
+        System.out.println("----------");
+
+        int floor = console_input_floor(area_key);
+        // System.out.println(floor);
+        System.out.println("----------");
+
+        int room = console_input_room(area_key, floor);
+        // System.out.println(room);
+        System.out.println("----------");
+
+        int uid = console_input_uid();
+        // System.out.println(uid);
+        System.out.println("----------");
+
+        //Add leading zeroes to room in case of floor being 0
+        String room_str = String.valueOf(room);
+        while (room_str.length() < room_len) {
+            room_str = "0" + room_str;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(group_key);
+        sb.append(object_key);
+        sb.append(area_key);
+        sb.append(room_str);
+        sb.append(uid);
+
+        return sb.toString();
     }
 
     public String string_from_key_values(Map<String, Integer> keys_map) {

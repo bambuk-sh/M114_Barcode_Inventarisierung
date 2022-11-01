@@ -1,9 +1,6 @@
 package ch.bbw;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Peter S.
@@ -13,9 +10,7 @@ public class App {
         Inventarisierung i = new Inventarisierung(1, 1, 1, 3, 99999);
         set_inventarisierung_data(i);
 
-        String code = "242328583";
-        System.out.println(i.string_from_key_values(i.decode_string_to_keys(code)));
-        System.out.println(i.validate_keys(i.decode_string_to_keys(code)));
+        System.out.println(i.console_input_to_code_string());
     }
 
     public static void set_inventarisierung_data(Inventarisierung i) {
