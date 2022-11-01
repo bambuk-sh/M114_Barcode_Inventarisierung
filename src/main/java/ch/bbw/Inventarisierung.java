@@ -29,13 +29,16 @@ public class Inventarisierung {
         this.uid_max = uid_max;
     }
 
-    public void print_values_from_keys(Map<String, Integer> keys_map) {
-        System.out.println("Group: " + group.get(keys_map.get("group_key")));
-        System.out.println("Object: " + group_object.get(keys_map.get("group_key")).get(keys_map.get("object_key")));
-        System.out.println("Area: " + area.get(keys_map.get("area_key")));
-        System.out.println("Floor: " + String.valueOf(keys_map.get("room")).charAt(0));
-        System.out.println("Room: " + keys_map.get("room"));
-        System.out.println("UID: " + keys_map.get("uid"));
+    public String string_from_key_values(Map<String, Integer> keys_map) {
+        String ret = "";
+
+        ret += ("Group: " + group.get(keys_map.get("group_key")) + "\n");
+        ret += ("Object: " + group_object.get(keys_map.get("group_key")).get(keys_map.get("object_key")) + "\n");
+        ret += ("Area: " + area.get(keys_map.get("area_key")) + "\n");
+        ret += ("Floor: " + String.valueOf(keys_map.get("room")).charAt(0) + "\n");
+        ret += ("Room: " + keys_map.get("room") + "\n");
+        ret += ("UID: " + keys_map.get("uid") + "\n");
+        return ret;
     }
 
     public Map<String, Integer> decode_string_to_keys(String code) {

@@ -14,7 +14,7 @@ public class App {
         set_inventarisierung_data(i);
 
         String code = "242328583";
-        i.print_values_from_keys(i.decode_string_to_keys(code));
+        System.out.println(i.string_from_key_values(i.decode_string_to_keys(code)));
     }
 
     public static void set_inventarisierung_data(Inventarisierung i) {
