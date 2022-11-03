@@ -130,7 +130,7 @@ public class Inventarisierung {
         while (!(uid >= 0) && (uid <= uid_max)) {
             System.out.print("Select an Unique ID: ");
             uid = s.nextInt();
-            if ((uid >= 0) && (uid <= uid_max)) System.out.println("Invalid UID.");
+            if (!((uid >= 0) && (uid <= uid_max))) System.out.println("Invalid UID.");
         }
         return uid;
     }
