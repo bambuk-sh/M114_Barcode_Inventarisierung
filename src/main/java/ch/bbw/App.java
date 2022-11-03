@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) {
         Inventarisierung i = new Inventarisierung(1, 1, 1, 3, 99999);
         set_inventarisierung_data(i);
-
+        
         System.out.println(i.console_input_to_code_string());
     }
 
